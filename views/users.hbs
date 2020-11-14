@@ -1,0 +1,132 @@
+<header class="header">
+  <h3><a href="/users" class="logo">User <span>session</span></a></h3>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/users">Login</a></li>
+  </ul>
+</header>
+<div id="wrapper"></div>
+<div id="container">
+
+  {{#if success}}
+    <section class= "success">
+        <h2>User registered successfully!</h2>
+        <p>Hi <strong>{{data.username}}</strong>, you can access to your account by using this email: <br><strong>{{data.email}}</strong></p>
+    </section>
+  {{else}}
+    {{#if errors}}
+      <section class="errors">
+        <h2>Please try again</h2>
+        <ul>
+          {{#each errors}}
+            <li> {{this.msg}} </li>
+          {{/each}}
+        </ul>
+      </section>
+    {{/if}}
+  {{/if}}
+
+  <div class="form-wrap">
+  <div class="tabs">
+    <h3 class="signup-tab"><a {{#unless status}} class="active" {{/unless}} href="#signup-tab-content">Sign Up</a></h3>
+    <h3 class="login-tab"><a {{#if status}} class="active" {{/if}} href="#login-tab-content">Login</a></h3>
+  </div><!--.tabs-->
+
+  <div class="tabs-content">
+    <div id="signup-tab-content" {{#unless status}}class="active" {{/unless}}>
+      <form class="signup-form" action="/users/signup" method="post">
+        <span class="w-input w-name"><input type="text" name="username_signup" class="input" id="user_signup" autocomplete="off" placeholder="Username" required></span>
+        <p class= "show-alert" id = "show-username"></p>
+        <span class="w-input" id="w-user_email"><input type="email" name="email_signup" class="input" id="user_email" autocomplete="off" placeholder="Email" required></span>
+        <p class= "show-alert" id = "show-email"></p>
+        <span class="w-input w-password"><input type="password" name="password_signup" class="input" id="user_pass" autocomplete="off" placeholder="Password" required></span>
+        <p class= "show-alert" id = "show-pass"></p>
+        <span class="w-input w-password"><input type="password" name="cpassword_signup" class="input" id="user_cpass" autocomplete="off" placeholder="Confirm password" required></span>
+        <p class= "show-alert" id = "show-cpass"></p>
+        <input type="submit" class="button" value="Sign Up">
+      </form><!--.login-form-->
+      <div class="help-text">
+        <p>By signing up, you can see extra</p>
+        <p>information not displayed in the <a href="/">map</a></p>
+      </div><!--.help-text-->
+    </div><!--.signup-tab-content-->
+
+    <div id="login-tab-content" {{#if status}} class="active" {{/if}}>
+      <form class="login-form" action="/users/login" method="post">
+        <span class="w-input w-name"><input type="text" name="username_login" class="input" id="user_login" autocomplete="off" placeholder="Email or Username" required></span>
+        <span class="w-input w-password"><input type="password" name="password_login" class="input" id="user_pass_2" autocomplete="off" placeholder="Password" required></span>
+        <input type="checkbox" class="checkbox" id="remember_me">
+        <label for="remember_me">Remember me</label>
+
+        <input type="submit" class="button" value="Login">
+      </form><!--.login-form-->
+      <div class="help-text">
+        <p><a href="/users/identify">Forgot your password?</a></p>
+      </div><!--.help-text-->
+    </div><!--.login-tab-content-->
+  </div><!--.tabs-content-->
+</div><!--.form-wrap-->
+</div>
+
+
+<footer class="footer-distributed">
+
+  <div class="footer-left">
+
+    <h3>Fire prevention<span> UFPS</span></h3>
+
+    <p class="footer-links">
+      <a href="/" class="link-1">Home</a>
+    
+      <a href="/about">About</a>
+      
+      <a href="/contact">Contact</a>
+      
+      <a href="/users">Login</a>
+    </p>
+
+    <p class="footer-company-name">Jhon Castro, UFPS © 2020</p>
+  </div>
+
+  <div class="footer-center">
+
+    <div>
+      <i class="fa fa-map-marker"></i>
+      <p><span>404 Stamford Dr</span> Newark, Delaware</p>
+    </div>
+
+    <div>
+      <i class="fa fa-phone"></i>
+      <p>+1 302-357-5863</p>
+    </div>
+
+    <div>
+      <i class="fa fa-envelope"></i>
+      <p><a href="mailto:wsnufpsproject@gmail.com">wsnufpsproject@gmail.com</a></p>
+    </div>
+
+  </div>
+
+  <div class="footer-right">
+
+    <p class="footer-company-about">
+      <span>The project</span>
+      A project from Francisco de Paula Santander University to Norte de Santander.
+    </p>
+
+    <div class="footer-icons">
+
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-github"></i></a>
+
+    </div>
+
+  </div>
+
+</footer>

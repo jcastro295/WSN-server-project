@@ -1,0 +1,137 @@
+
+<script type="text/javascript" src="/javascripts/usermenu.js"></script>
+<header class="header">
+  <h3><a href="/" class="logo">Welcome <span>{{data}}</span></a></h3>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
+    <li><a href="/">Logout</a></li>
+  </ul>
+</header>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<div id="wrapper"></div>
+
+
+<button class="btn-nav">
+    <div class="bar arrow-top-r"></div>
+    <div class="bar arrow-middle-r"></div>
+    <div class="bar arrow-bottom-r"></div>
+</button>
+
+
+<nav class="nav-container hidden hideNav">
+    <ul class="nav-list">
+        <li class="list-item"><a href="">node 1<i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+    </ul>
+</nav>
+
+<div id="chart"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+//Menu
+ $(window).on('load',function() {
+   $(".btn-nav").on("click tap", function() {
+     $(".nav-container").toggleClass("showNav hideNav").removeClass("hidden");
+     $(this).toggleClass("animated");
+   });
+ });
+
+ $('.nav-container').scroll(function(){
+    $(".btn-nav").css("opacity", 1 - $('.nav-container').scrollTop());
+  });
+
+//Socket.io
+var socket = io();
+
+//Charts
+  var chart = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.temperature);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+
+    title: {
+        text: 'Temperature'
+    },
+
+    exporting: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'temperture',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+</script>
