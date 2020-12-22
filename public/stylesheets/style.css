@@ -1080,7 +1080,7 @@ span.w-password:before{
   text-align: center !important;
 }
 
-#chart{
+.chart{
   width: 95%;
   margin: auto;
   margin-top: 70px;
@@ -1123,7 +1123,7 @@ span.w-password:before{
   display: block;
   height: 5px;
   width: 50px;
-  background: #fff;
+  background: gray;
   margin: 10px auto;
 }
 
@@ -1188,12 +1188,13 @@ span.w-password:before{
 }
 
 .nav-container {
-  position: absolute;
+  position: fixed;
   left: -50%;
   top: 64.8;
   background: #22334d;
   height: calc(100% - 64.8px);
-  width: 150px;
+  width: 20%;
+  min-width: 200px;
   z-index: 998;
   box-sizing: border-box;
   overflow-y: auto;
@@ -1233,8 +1234,8 @@ span.w-password:before{
 .list-item {
   margin: 20px auto;
   border: 2px solid #fff;
-  width: 50px;
-  padding: 15px;
+  width: 100px;
+  padding: 5px;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -ms-transition: all 1s ease;
@@ -1267,7 +1268,7 @@ span.w-password:before{
 
 .list-item a {
   color: #fff;
-  font-size: 1.7em;
+  font-size: 1em;
   display: block;
   width: 100%;
   text-decoration: none;
@@ -1357,5 +1358,25 @@ to { left: -100%; }
 
 @media (min-width: 48em) {
 
+  .list-item a {
+    font-size: 1.7em;
 
+  }
+
+  .list-item {
+    margin: 20px auto;
+    border: 2px solid #fff;
+    width: 300px;
+    padding: 15px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+
+  .list-item {
+    width: 150px;
+    padding: 15px;
+  }
 }

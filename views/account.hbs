@@ -12,38 +12,43 @@
 <div id="wrapper"></div>
 
 
-<button class="btn-nav">
+<button id="button-nav" class="btn-nav">
     <div class="bar arrow-top-r"></div>
     <div class="bar arrow-middle-r"></div>
     <div class="bar arrow-bottom-r"></div>
 </button>
 
 
-<nav class="nav-container hidden hideNav">
+<nav id="nav-panel" class="nav-container hidden hideNav">
     <ul class="nav-list">
-        <li class="list-item"><a href="">node 1<i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
-        <li class="list-item"><a href=""><i class="fa fa-free-code-camp"></i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(1);return false;"><i class="fa fa-free-code-camp"> node 1</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(2);return false;"><i class="fa fa-free-code-camp"> node 2</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(3);return false;"><i class="fa fa-free-code-camp"> node 3</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(4);return false;"><i class="fa fa-free-code-camp"> node 4</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(5);return false;"><i class="fa fa-free-code-camp"> node 5</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(6);return false;"><i class="fa fa-free-code-camp"> node 6</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(7);return false;"><i class="fa fa-free-code-camp"> node 7</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(8);return false;"><i class="fa fa-free-code-camp"> node 8</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(9);return false;"><i class="fa fa-free-code-camp"> node 9</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(10);return false;"><i class="fa fa-free-code-camp"> node 10</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(11);return false;"><i class="fa fa-free-code-camp"> node 11</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(12);return false;"><i class="fa fa-free-code-camp"> node 12</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(13);return false;"><i class="fa fa-free-code-camp"> node 13</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(14);return false;"><i class="fa fa-free-code-camp"> node 14</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(15);return false;"><i class="fa fa-free-code-camp"> node 15</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(16);return false;"><i class="fa fa-free-code-camp"> node 16</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(17);return false;"><i class="fa fa-free-code-camp"> node 17</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(18);return false;"><i class="fa fa-free-code-camp"> node 18</i></a></li>
+        <li class="list-item"><a href="" onclick="actualize_title(19);return false;"><i class="fa fa-free-code-camp"> node 19</i></a></li>
     </ul>
 </nav>
 
-<div id="chart"></div>
+<div class="chart" id="chart_temp"></div>
+<div class="chart" id="chart_hum"></div>
+<div class="chart" id="chart_mo"></div>
+<div class="chart" id="chart_met"></div>
+<div class="chart" id="chart_smoke"></div>
+<div class="chart" id="chart_flame"></div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 //Menu
@@ -58,16 +63,35 @@
     $(".btn-nav").css("opacity", 1 - $('.nav-container').scrollTop());
   });
 
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+var button = document.getElementById("button-nav");
+var panel = document.getElementById("nav-panel");
+  if (currentScrollPos > 10) {
+    button.style.display = "none";
+    button.classList.remove('animated');
+    panel.classList.add('hideNav');
+    if (panel.classList.contains('showNav')){
+        panel.classList.remove('showNav')
+    }
+  } else {
+   button.style.display = "block";
+  }
+  prevScrollpos = currentScrollPos;
+}
+
 //Socket.io
 var socket = io();
-
+var numNode = null;
 //Charts
-  var chart = new Highcharts.Chart({
+actualize_title(null);
+function actualize_title(numNode) {
+var chart_temp = new Highcharts.Chart({
 
     chart: {
             //alignTicks: false,
         type: 'spline',
-        renderTo: 'chart',
+        renderTo: 'chart_temp',
         events: {
             load: function() {
                 var series = this.series[0];
@@ -102,11 +126,14 @@ var socket = io();
         inputEnabled: false,
         selected: 0
     },
-
     title: {
-        text: 'Temperature'
+        text: 'Temperature level at node : ' + numNode
     },
-
+    yAxis: {
+        title: {
+        text : 'Celcius degrees (°)',
+        }
+    },
     exporting: {
         enabled: false
     },
@@ -117,7 +144,7 @@ var socket = io();
         }
     },
     series: [{
-        name: 'temperture',
+        name: 'temperature',
         data: (function () {
             // generate an array of random data
             var data = [],
@@ -134,4 +161,385 @@ var socket = io();
         }())
     }]
 });
+
+var chart_hum = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart_hum',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.humidity);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+    title: {
+        text: 'Humidity level at node : ' + numNode
+    },
+    yAxis: {
+        title: {
+        text : 'Percentage (%)',
+        }
+    },
+    exporting: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'humidity',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+
+var chart_mo = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart_mo',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.MQ9);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+    title: {
+        text: 'Carbon monoxide level at node : ' + numNode
+    },
+    exporting: {
+        enabled: false
+    },
+    yAxis: {
+        title: {
+        text : 'parts per million (ppm)',
+        }
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'carbon monoxide',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+
+var chart_met = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart_met',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.MQ9);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+    title: {
+        text: 'Methane level at node : ' + numNode
+    },
+    yAxis: {
+        title: {
+        text : 'parts per million (ppm)',
+        }
+    },
+    exporting: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'methane',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+
+var chart_smoke = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart_smoke',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.MQ2);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+    title: {
+        text: 'Smoke level at node : ' + numNode
+    },
+    yAxis: {
+        title: {
+        text : 'parts per million (ppm)',
+        }
+    },
+    exporting: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'smoke',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+
+var chart_flame = new Highcharts.Chart({
+
+    chart: {
+            //alignTicks: false,
+        type: 'spline',
+        renderTo: 'chart_flame',
+        events: {
+            load: function() {
+                var series = this.series[0];
+                socket.on('sensor node', function(data){
+                    if(data.node != null && (data.node >= 1 && data.node <= 19)){
+                        var x = (new Date()).getTime(),
+                            y = parseFloat(data.flame);
+                        series.addPoint([x, y], true, true);
+                    }
+                });
+                
+            }
+        }
+        },
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+    title: {
+        text: 'Flame detection at node : ' + numNode
+    },
+    yAxis: {
+        title: {
+        text : 'Flame detection',
+        }
+    },
+    exporting: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'datetime',
+        labels: {
+        format: '{value:%H:%M:%S}',
+        }
+    },
+    series: [{
+        name: 'flame',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    0
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+}
 </script>
