@@ -11,7 +11,7 @@ var expressSession = require('express-session');
 var app = express();
 var mongoose = require('mongoose');
 
-var mongoDB = 'mongodb://jcastro:android95@127.0.0.1:27017/wsnDatabase';
+var mongoDB = 'mongodb://xxxxx:xxxxx5@127.0.0.1:27017/wsnDatabase';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //var expressSession = require('express-session');
